@@ -1,0 +1,23 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    text-align: center;
+    justify-content:center;
+    align-items: center;
+}
+.start {
+    border: solid;
+    width: 100%;
+    margin: 10% 30%;
+    padding: 5%;
+}
+
+
+button:hover {
+    cursor: pointer;
+    background: rgb(72, 218, 210);
+}
+
+.hide {
+    display: none;
+}
