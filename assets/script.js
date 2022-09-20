@@ -1,4 +1,5 @@
 const setTimer = document.querySelector("#time");
+const startQuiz= document.getElementById("Start-Quiz")
 let secondsLeft = 30;
 let questions = [
     "question1",
@@ -14,7 +15,7 @@ let answers = [
 ];
 
 
-function setTime() {
+function setTime() {   
     var timer = document.createElement("p");
     setTimer.appendChild(timer)
     var timerInterval= setInterval(function() {
@@ -23,9 +24,8 @@ function setTime() {
 
         if(secondsLeft === 0) {
             clearInterval(timerInterval);
-            sendMessage();
         }
     }, 1000);
 }
 
-setTime();
+startQuiz.addEventListener("click", setTime);
