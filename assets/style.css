@@ -12,12 +12,15 @@ body {
     padding: 5%;
 }
 
+.questions {
+    display: none;
+}
 
 button:hover {
     cursor: pointer;
     background: rgb(72, 218, 210);
 }
 
-.hide {
+.highscores {
     display: none;
 }
