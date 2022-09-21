@@ -21,6 +21,8 @@ button:hover {
     background: rgb(72, 218, 210);
 }
 
-.highscores {
+.highScores {
     display: none;
 }
+
+

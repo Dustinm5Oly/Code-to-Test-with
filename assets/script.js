@@ -1,5 +1,6 @@
 const setTimer = document.querySelector("#time");
-const startQuiz= document.getElementById("Start-Quiz")
+const stopTimeEl= document.querySelector("#stop-time")
+const startQuiz = document.getElementById("Start-Quiz")
 const header = document.getElementById("header");
 const text = document.getElementById("text");
 const questionsEl = document.querySelector("#question");
@@ -10,7 +11,8 @@ const answerEl3 = document.getElementById("answer3");
 const questionsDiv = document.querySelector(".questions");
 const answerButton = [answerEl0, answerEl1, answerEl2, answerEl3];
 let nextQuestion = 0
-const highScoreDiv= document.querySelector(".highscores");
+const highScoreDiv = document.querySelector(".highScores");
+const highScoreLi = document.getElementById("listScore");
 
 let secondsLeft = 30;
 let questions = [
@@ -20,67 +22,77 @@ let questions = [
     "question4",
 ];
 let answers = [
-    ["answer1", "answer2", "answer3", "answer4"],
-    ["answer5", "answer6", "answer7", "answer8"],
-    ["answer9", "answer10", "answer11", "answer12"],
-    ["answer13", "answer14", "answer15", "answer16"],
+    [{a:"answer1", correct: true}, {a:"answer2", correct: false}, {a:"answer3", correct:false}, {a:"answer4", correct: false}],
+    [{a:"answer5", correct: false}, {a:"answer6", correct: false}, {a:"answer7", correct: true}, {a:"answer8", correct: false}],
+    [{a:"answer9", correct: false}, {a:"answer10", correct: false}, {a:"answer11", correct: false}, {a:"answer12", correct: true}],
+    [{a:"answer13", correct: false}, {a:"answer14", correct: false}, {a:"answer15", correct: true}, {a:"answer16", correct: false}],
 ];
 
+
+
 for (let i = 0; i < answerButton.length; i++) {
-    answerButton[i].addEventListener('click', function(e){
+    answerButton[i].addEventListener('click', function (e) {
         console.log(e.target.innerText);
-        const selectedAnswer = e.target.innerText;
-        nextQuestion++;
-        if (nextQuestion > 3){
-        showHighScore();
+        const selectedAnswer = answers[nextQuestion].find(function (answer) {
+            return answer.a === e.target.innerText
+        })
+        console.log(selectedAnswer);
+        if (selectedAnswer.correct) {
         } else {
-        displayQuestion();
+            secondsLeft -= 5
+        }
+        nextQuestion++;
+        if (nextQuestion > 3) {
+            showHighScore();
+            clearInterval(timerInterval);
+        } else {
+            displayQuestion();
         }
     });
 }
 
-function showHighScore(){
+function showHighScore() {
     questionsDiv.setAttribute("style", "display:none");
     highScoreDiv.setAttribute("style", "display:block");
 }
 
-function displayQuestion(){
+function listHighScores() {
 
-    //for (let i = 0; i < questions.length; i++) {
-        questionsEl.textContent=questions[nextQuestion];
-        answerEl0.textContent=answers[nextQuestion][0];
-        answerEl1.textContent=answers[nextQuestion][1];
-        answerEl2.textContent=answers[nextQuestion][2];
-        answerEl3.textContent=answers[nextQuestion][3];
-
-
-        
-   // }
 }
 
-// function answerQuestion(){
+function displayQuestion() {
 
-// }
+    //for (let i = 0; i < questions.length; i++) {
+    questionsEl.textContent = questions[nextQuestion];
+    answerEl0.textContent = answers[nextQuestion][0].a;
+    answerEl1.textContent = answers[nextQuestion][1].a;
+    answerEl2.textContent = answers[nextQuestion][2].a;
+    answerEl3.textContent = answers[nextQuestion][3].a;
+    // }
+}
 
 
-function setTime() {   
+
+
+function setTime() {
     header.setAttribute("style", "display:none");
-    text.setAttribute("style", "display:none"); 
+    text.setAttribute("style", "display:none");
     startQuiz.setAttribute("style", "display:none");
     questionsDiv.setAttribute("style", "display:block");
     var timer = document.createElement("p");
     setTimer.appendChild(timer)
-    var timerInterval= setInterval(function() {
+    timerInterval = setInterval(function () {
         secondsLeft--;
-        timer.textContent = secondsLeft + "Seconds Left";
+        timer.textContent = secondsLeft + " Seconds Left";
 
-        if(secondsLeft === 0) {
+        if (secondsLeft === 0) {
             clearInterval(timerInterval);
+            location.reload();
         }
     }, 1000);
 }
 
-startQuiz.addEventListener("click", function(){
+startQuiz.addEventListener("click", function() {
     setTime();
     displayQuestion();
 });
