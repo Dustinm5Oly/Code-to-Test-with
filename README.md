@@ -25,9 +25,9 @@
     -Once all questions have been answered and the clock stops you can submit your name to the high scores.
 
 
-<img src="./images\Webpage Screenshot.jpg</img>
+<img src="./images\Webpage Screenshot.jpg"></img>
 
-[webpage](https://dustinm5oly.github.io/Code-to-Test-with/)
+[Link to Live Webpage](https://dustinm5oly.github.io/Code-to-Test-with/)
 
 
 
