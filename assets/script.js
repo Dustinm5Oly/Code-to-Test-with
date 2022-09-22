@@ -1,6 +1,6 @@
 const setTimer = document.querySelector("#time");
-const stopTimeEl= document.querySelector("#stop-time")
-const startQuiz = document.getElementById("Start-Quiz")
+const startQuiz = document.getElementById("Start-Quiz");
+const highScoreDiv = document.querySelector(".highScores");
 const header = document.getElementById("header");
 const text = document.getElementById("text");
 const questionsEl = document.querySelector("#question");
@@ -10,9 +10,12 @@ const answerEl2 = document.getElementById("answer2");
 const answerEl3 = document.getElementById("answer3");
 const questionsDiv = document.querySelector(".questions");
 const answerButton = [answerEl0, answerEl1, answerEl2, answerEl3];
+const submitScoreBtn = document.querySelector("#submit-button");
+const hsInputSpan = document.querySelector("#user-name");
+const hsInput = document.querySelector("#high-input");
 let nextQuestion = 0
-const highScoreDiv = document.querySelector(".highScores");
-const highScoreLi = document.getElementById("listScore");
+
+renderHighScores();
 
 let secondsLeft = 30;
 let questions = [
@@ -28,6 +31,18 @@ let answers = [
     [{a:"answer13", correct: false}, {a:"answer14", correct: false}, {a:"answer15", correct: true}, {a:"answer16", correct: false}],
 ];
 
+function renderHighScores(){
+    var name = localStorage.getItem("name");
+    hsInputSpan.textContent = name;
+};
+    submitScoreBtn.addEventListener("click", function(event){
+    event.preventDefault();
+
+    var name = document.querySelector("#high-input").value;
+
+    localStorage.setItem("name", name);
+    renderHighScores();
+});
 
 
 for (let i = 0; i < answerButton.length; i++) {
@@ -49,16 +64,12 @@ for (let i = 0; i < answerButton.length; i++) {
             displayQuestion();
         }
     });
-}
+};
 
 function showHighScore() {
     questionsDiv.setAttribute("style", "display:none");
     highScoreDiv.setAttribute("style", "display:block");
-}
-
-function listHighScores() {
-
-}
+};
 
 function displayQuestion() {
 
@@ -69,10 +80,7 @@ function displayQuestion() {
     answerEl2.textContent = answers[nextQuestion][2].a;
     answerEl3.textContent = answers[nextQuestion][3].a;
     // }
-}
-
-
-
+};
 
 function setTime() {
     header.setAttribute("style", "display:none");
@@ -96,3 +104,4 @@ startQuiz.addEventListener("click", function() {
     setTime();
     displayQuestion();
 });
+
