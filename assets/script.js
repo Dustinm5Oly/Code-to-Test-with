@@ -15,23 +15,23 @@ const hsInputSpan = document.querySelector("#user-name");
 const hsInput = document.querySelector("#high-input");
 let nextQuestion = 0
 
-renderHighScores();
+renderHighScores();// renders last known user name
 
 let secondsLeft = 30;
-let questions = [
-    "question1",
-    "question2",
-    "question3",
-    "question4",
+let questions = [ //this is my questions array 
+    "Which is not a data type in JS?",
+    "Which represents the sign of a loose equality operator?",
+    "Which does not represent a type of variable?",
+    "What method would you use to add an element to the end of an array?",
 ];
-let answers = [
-    [{a:"answer1", correct: true}, {a:"answer2", correct: false}, {a:"answer3", correct:false}, {a:"answer4", correct: false}],
-    [{a:"answer5", correct: false}, {a:"answer6", correct: false}, {a:"answer7", correct: true}, {a:"answer8", correct: false}],
-    [{a:"answer9", correct: false}, {a:"answer10", correct: false}, {a:"answer11", correct: false}, {a:"answer12", correct: true}],
-    [{a:"answer13", correct: false}, {a:"answer14", correct: false}, {a:"answer15", correct: true}, {a:"answer16", correct: false}],
+let answers = [ // this is my answer arrays within an array, giving a value to each array of false or true for the correct answer
+    [{a:"Variable", correct: true}, {a:"String", correct: false}, {a:"Boolean", correct:false}, {a:"Number", correct: false}],
+    [{a:"===", correct: false}, {a:"<=", correct: false}, {a:"==", correct: true}, {a:">=", correct: false}],
+    [{a:"const", correct: false}, {a:"let", correct: false}, {a:"var", correct: false}, {a:"function", correct: true}],
+    [{a:"add", correct: false}, {a:"click", correct: false}, {a:"push", correct: true}, {a:"unshift", correct: false}],
 ];
 
-function renderHighScores(){
+function renderHighScores(){ //pulls name from local store and displays in the li for high scores
     var name = localStorage.getItem("name");
     hsInputSpan.textContent = name;
 };
@@ -45,18 +45,18 @@ function renderHighScores(){
 });
 
 
-for (let i = 0; i < answerButton.length; i++) {
+for (let i = 0; i < answerButton.length; i++) { // this for loop brings along the new set of answers when the user selects an answer
     answerButton[i].addEventListener('click', function (e) {
         console.log(e.target.innerText);
         const selectedAnswer = answers[nextQuestion].find(function (answer) {
             return answer.a === e.target.innerText
         })
-        console.log(selectedAnswer);
+        console.log(selectedAnswer); // this deducts 5 seconds from the users time for each question answered incorrectly 
         if (selectedAnswer.correct) {
         } else {
             secondsLeft -= 5
         }
-        nextQuestion++;
+        nextQuestion++; // this pushes the user to the next question
         if (nextQuestion > 3) {
             showHighScore();
             clearInterval(timerInterval);
@@ -66,12 +66,12 @@ for (let i = 0; i < answerButton.length; i++) {
     });
 };
 
-function showHighScore() {
+function showHighScore() { // this displays the high score screen once all questions are answered
     questionsDiv.setAttribute("style", "display:none");
     highScoreDiv.setAttribute("style", "display:block");
 };
 
-function displayQuestion() {
+function displayQuestion() { //this displays all the questions and answered in the correct order
 
     //for (let i = 0; i < questions.length; i++) {
     questionsEl.textContent = questions[nextQuestion];
@@ -82,7 +82,7 @@ function displayQuestion() {
     // }
 };
 
-function setTime() {
+function setTime() { // this sets the timer
     header.setAttribute("style", "display:none");
     text.setAttribute("style", "display:none");
     startQuiz.setAttribute("style", "display:none");
@@ -100,7 +100,7 @@ function setTime() {
     }, 1000);
 }
 
-startQuiz.addEventListener("click", function() {
+startQuiz.addEventListener("click", function() { // this starts the timer once start quiz has been clicked
     setTime();
     displayQuestion();
 });
